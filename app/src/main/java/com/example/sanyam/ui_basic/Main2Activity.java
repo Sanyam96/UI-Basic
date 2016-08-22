@@ -1,6 +1,7 @@
 package com.example.sanyam.ui_basic;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,45 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity {
+
+
+    //TODO DONE---------------------------------------------------------------
+    /**
+     * for handling back press button
+     * for single click dont close the app
+     * double tab on back button within 4sec(4000ms) to exit the application
+     */
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            System.exit(0);
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+//        Intent i=new Intent();
+//        i.setClass(MainActivity.this,MainActivity.class);
+//        startActivity(i);
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 4000);
+    }
+    //TODO DONE---------------------------------------------------------------
+
+
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -83,6 +121,8 @@ public class Main2Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //TODO DONE---------------------------------------------------------------
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -116,7 +156,10 @@ public class Main2Activity extends AppCompatActivity {
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
+
     }
+    //TODO DONE---------------------------------------------------------------
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
